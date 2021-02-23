@@ -1,15 +1,20 @@
-# tfp_solutions
+# TFP Solutions
 
 A new Flutter application.
 
-##  Install packages from the command line:
+## 1. Install packages from the command line:
 
 ```bash
 flutter pub get
 ```
-# Then Run
+# 2. For Generate build_runner Auto ganarated Code
 ```bash
 flutter pub run build_runner build --delete-conflicting-outputs
+```
+
+# 2. Run The Project
+```bash
+flutter run
 ```
 
 # Apk Download Link
