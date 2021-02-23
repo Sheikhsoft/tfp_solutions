@@ -1,0 +1,164 @@
+{
+  "project_info": {
+    "project_number": "140012073715",
+    "firebase_url": "https://filters-88d5e.firebaseio.com",
+    "project_id": "filters-88d5e",
+    "storage_bucket": "filters-88d5e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140012073715:android:be021a5930515bd8b0bd86",
+        "android_client_info": {
+          "package_name": "com.example.fast_turtle_v2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140012073715-ucf7k0500ru3ks9i9icmqf3jdnba6t11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7MNqTJQ6UsbYmy_uQhO6x7RoS5KlpIAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140012073715-ucf7k0500ru3ks9i9icmqf3jdnba6t11.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140012073715:android:a1455bea7ee40c15b0bd86",
+        "android_client_info": {
+          "package_name": "com.sheikhsoft.food_delivery_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140012073715-d4epus8hr1esg9iqtv69r4t24mn7becd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sheikhsoft.food_delivery_app",
+            "certificate_hash": "c4e1083e33fe38625c91d026bd3b6e15e8c926e5"
+          }
+        },
+        {
+          "client_id": "140012073715-ucf7k0500ru3ks9i9icmqf3jdnba6t11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7MNqTJQ6UsbYmy_uQhO6x7RoS5KlpIAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140012073715-ucf7k0500ru3ks9i9icmqf3jdnba6t11.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140012073715:android:1c1724d6eb80692ab0bd86",
+        "android_client_info": {
+          "package_name": "com.sheikhsoft.grocerydelivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140012073715-ucf7k0500ru3ks9i9icmqf3jdnba6t11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7MNqTJQ6UsbYmy_uQhO6x7RoS5KlpIAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140012073715-ucf7k0500ru3ks9i9icmqf3jdnba6t11.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140012073715:android:50387803dbd0334db0bd86",
+        "android_client_info": {
+          "package_name": "com.sheikhsoft.groceryshop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140012073715-ucf7k0500ru3ks9i9icmqf3jdnba6t11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7MNqTJQ6UsbYmy_uQhO6x7RoS5KlpIAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140012073715-ucf7k0500ru3ks9i9icmqf3jdnba6t11.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140012073715:android:b846ae262e9eef8bb0bd86",
+        "android_client_info": {
+          "package_name": "com.sheikhsoft.tfp_solutions"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140012073715-ucf7k0500ru3ks9i9icmqf3jdnba6t11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7MNqTJQ6UsbYmy_uQhO6x7RoS5KlpIAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140012073715-ucf7k0500ru3ks9i9icmqf3jdnba6t11.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
