@@ -16,36 +16,8 @@ class ProfileView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         appBar: PreferredSize(
           preferredSize: Size(double.infinity, 90),
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: 90,
-            child: CustomPaint(
-              painter: RPSCustomPainter(),
-              child: Container(
-                child: Container(
-                  margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.navigate_before,
-                        size: 40,
-                        color: Colors.transparent,
-                      ),
-                      Text(
-                        "Profile",
-                        style: TextStyle(fontSize: 24, color: Colors.white),
-                      ),
-                      Icon(
-                        Icons.navigate_before,
-                        color: Colors.transparent,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+          child: AppBarWedget(
+            title: "Profile",
           ),
         ),
         body: Container(
