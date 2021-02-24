@@ -1,16 +1,11 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:email_validator/email_validator.dart';
-import 'package:encrypt/encrypt.dart';
 import 'package:flutter/material.dart';
-
 import 'package:my_app/app/locator.dart';
 import 'package:my_app/app/router.gr.dart';
-import 'package:my_app/datamodels/Customer_model.dart';
 import 'package:my_app/datamodels/customer.dart';
 import 'package:my_app/datamodels/validation_item.dart';
-import 'package:my_app/services/api.dart';
 import 'package:my_app/services/customer_service.dart';
 import 'package:my_app/services/dynamic_link_service.dart';
 import 'package:my_app/services/encryption_service.dart';
@@ -32,6 +27,10 @@ class ProfileViewModel extends BaseViewModel {
   ValidationItem _postalCode = ValidationItem(null, null);
   ValidationItem _birthDay = ValidationItem(null, null);
   ValidationItem _gender = ValidationItem(null, null);
+  ValidationItem _idType = ValidationItem(null, null);
+  ValidationItem _idNumber = ValidationItem(null, null);
+  ValidationItem _statevalue = ValidationItem(null, null);
+  ValidationItem _nationality = ValidationItem(null, null);
 
   ValidationItem get name => _name;
   ValidationItem get mobile => _mobile;
@@ -42,6 +41,10 @@ class ProfileViewModel extends BaseViewModel {
   ValidationItem get postalCode => _postalCode;
   ValidationItem get birthDay => _birthDay;
   ValidationItem get gender => _gender;
+  ValidationItem get idType => _idType;
+  ValidationItem get idNumber => _idNumber;
+  ValidationItem get statevalue => _statevalue;
+  ValidationItem get nationality => _nationality;
 
   Image _customerPhoto;
   Image get customerPhoto => _customerPhoto;
@@ -136,11 +139,7 @@ class ProfileViewModel extends BaseViewModel {
   void setPostalCode(String postCode) {
     //String patttern = r'(^[0-9]{3,6}$)';
     //RegExp regExp = new RegExp(patttern);
-    if (postCode.length >= 3) {
-      _postalCode = ValidationItem(postCode, null);
-    } else {
-      _postalCode = ValidationItem(null, "Must be at least 3 characters");
-    }
+    _postalCode = ValidationItem(postCode, null);
     notifyListeners();
   }
 
@@ -154,17 +153,44 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   void setGender(String gender) {
-    if (gender.length >= 3) {
-      _gender = ValidationItem(gender, null);
+    _gender = ValidationItem(gender, null);
+    notifyListeners();
+  }
+
+  void setIdType(String value) {
+    _idType = ValidationItem(value, null);
+    notifyListeners();
+  }
+
+  void setIdNumber(String value) {
+    if (value.length >= 5) {
+      _idNumber = ValidationItem(value, null);
     } else {
-      _gender = ValidationItem(null, "Must be at least 3 characters");
+      _idNumber = ValidationItem(null, "Must be at least 3 characters");
     }
+
+    notifyListeners();
+  }
+
+  void setStateValue(String value) {
+    _statevalue = ValidationItem(value, null);
+
+    notifyListeners();
+  }
+
+  void setNationality(String value) {
+    if (value.length >= 5) {
+      _nationality = ValidationItem(value, null);
+    } else {
+      _nationality = ValidationItem(null, "Must be at least 3 characters");
+    }
+
     notifyListeners();
   }
 
   void submitData() async {
     String param =
-        "name=${_name.value}&mobile=${_mobile.value}&email=${_email.value}&address=${_address.value}&city=${_city.value}&country=${_country.value}&postalcode=${_postalCode.value}&birthDay=${_birthDay.value}&gender=${_gender.value}";
+        "name=${_name.value}&mobile=${_mobile.value}&email=${_email.value}&address=${_address.value}&city=${_city.value}&country=${_country.value}&postalcode=${_postalCode.value}&birthDay=${_birthDay.value}&gender=${_gender.value}&idType=${_idType.value}&idNumber=${_idNumber.value}&state=${_statevalue.value}&nationality=${_nationality.value}";
     String finderview = await _dynamicLinkService.createDynamicLink(
         shortn: false, route: Routes.finderView, params: param);
     if (finderview != null) {
@@ -195,27 +221,21 @@ class ProfileViewModel extends BaseViewModel {
     setName("${_customer.firstName} ${_customer.lastName}");
     setEmail(_customer.emailAddress);
     setCity(_customer.city);
-    //setPostalCode(_customer.postCode.toString());
+    setPostalCode(_customer.postCode.toString());
     setCountry(_customer.country);
     setAddress(_customer.address);
-    setPostalCode(_customer.postCode.toString());
-
     setBirthDay(_customer.dateOfBirth);
-    String photo = await decryptPhotoString(_customer.photos);
-    print(photo);
+    setGender(_customer.gender);
+    setIdNumber(_customer.idNumber);
+    setNationality(_customer.nationality);
+    setIdType(_customer.idType);
+    print("state value ${_customer.state}");
+    setStateValue(_customer.state);
   }
 
   Future<String> decryptString(String enctypedString) async {
-    String decryptValue =
-        await _encryptionService.decrypt(Encrypted.fromBase64(enctypedString));
+    String decryptValue = await _encryptionService.decrypt(enctypedString);
     //print(decryptValue);
     return decryptValue;
-  }
-
-  Future<String> decryptPhotoString(String enctypedString) async {
-    String decryptPhotoValue =
-        await _encryptionService.decrypt(Encrypted.fromBase64(enctypedString));
-    //print(decryptValue);
-    return decryptPhotoValue;
   }
 }

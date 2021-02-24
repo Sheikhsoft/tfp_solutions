@@ -41,6 +41,10 @@ class DynamicLinkService {
         String postalcode = deepLink.queryParameters['postalcode'];
         String birthDay = deepLink.queryParameters['birthDay'];
         String gender = deepLink.queryParameters['gender'];
+        String idType = deepLink.queryParameters['idType'];
+        String idNumber = deepLink.queryParameters['idNumber'];
+        String state = deepLink.queryParameters['state'];
+        String nationality = deepLink.queryParameters['nationality'];
 
         Map<String, String> argument = {
           "name": name,
@@ -52,6 +56,10 @@ class DynamicLinkService {
           "postalcode": postalcode,
           "birthDay": birthDay,
           "gender": gender,
+          "idType": idType,
+          "idNumber": idNumber,
+          "state": state,
+          "nationality": nationality,
         };
 
         if (name != null &&
@@ -62,7 +70,11 @@ class DynamicLinkService {
             country != null &&
             postalcode != null &&
             birthDay != null &&
-            gender != null) {
+            gender != null &&
+            idType != null &&
+            idNumber != null &&
+            state != null &&
+            nationality != null) {
           // if we have a post navigate to the CreatePostViewRoute and pass in the title as the arguments.
 
           _navigationService.replaceWith(deepLink.path,

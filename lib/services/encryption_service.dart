@@ -19,8 +19,9 @@ class EncryptionService {
         errors: []);
   }
 
-  Future<String> decrypt(Encrypted encryptValue) async {
-    final decrypted = encrypter.decrypt(encryptValue, iv: iv);
+  Future<String> decrypt(String encryptValue) async {
+    final decrypted =
+        encrypter.decrypt(Encrypted.fromBase64(encryptValue), iv: iv);
 
     return decrypted;
   }

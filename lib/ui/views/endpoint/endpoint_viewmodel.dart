@@ -7,11 +7,20 @@ import 'package:stacked/stacked.dart';
 
 class EndPointViewModel extends BaseViewModel {
   final _encryptionService = locator<EncryptionService>();
-  Future<Map<dynamic, dynamic>> encryption(String data) async {
+
+  Future<Map<String, dynamic>> encryption(String data) async {
     EncryptionModel encryptionModel = await _encryptionService.encrypt(data);
 
     var joson = encryptionModel.toJson();
-    Map<dynamic, dynamic> jsonObj = joson;
+    Map<String, dynamic> jsonObj = joson;
     return jsonObj;
+  }
+
+  Future<Map<String, dynamic>> decryption(String data) async {
+    String encryptionModel = await _encryptionService.decrypt(data);
+
+    Map<String, dynamic> decryptedValue = jsonDecode(encryptionModel);
+
+    return decryptedValue;
   }
 }

@@ -36,10 +36,6 @@ class ProfileView extends StatelessWidget {
   }
 
   _buildBody(ProfileViewModel model, BuildContext context) {
-    DateTime _selectedDate;
-
-    String dropDownValue;
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView(
@@ -127,16 +123,27 @@ class ProfileView extends StatelessWidget {
             },
           ),
           SizedBox(height: 15.0),
+          Text("State"),
+          SizedBox(height: 5.0),
+          TextField(
+            controller: TextEditingController(text: model.statevalue.value),
+            decoration: buildInputDecoration(
+              labelText: "State",
+              icon: Icons.location_searching_sharp,
+              errorText: model.statevalue.error,
+            ),
+            onChanged: (String value) {
+              model.setStateValue(value);
+            },
+          ),
+          SizedBox(height: 15.0),
           Text("Country"),
           SizedBox(height: 5.0),
           TextField(
-            controller: TextEditingController(text: model.country.value),
+            controller: new TextEditingController(text: model.country.value),
             readOnly: true,
             onTap: () => showCountryPicker(
               context: context,
-              //Optional.  Can be used to exclude(remove) one ore more country from the countries list (optional).
-              //exclude: <String>['KN', 'MF'],
-              //Optional. Shows phone code before the country name.
               showPhoneCode: false,
               onSelect: (Country country) {
                 print('Select country: ${country.displayName}');
@@ -152,9 +159,24 @@ class ProfileView extends StatelessWidget {
             },
           ),
           SizedBox(height: 15.0),
+          Text("Nationality"),
+          SizedBox(height: 5.0),
+          TextField(
+            controller: TextEditingController(text: model.nationality.value),
+            decoration: buildInputDecoration(
+              labelText: "Nationality",
+              icon: Icons.location_city,
+              errorText: model.nationality.error,
+            ),
+            onChanged: (String value) {
+              model.setNationality(value);
+            },
+          ),
+          SizedBox(height: 15.0),
           Text("Postal Code"),
           SizedBox(height: 5.0),
           TextField(
+            controller: TextEditingController(text: model.postalCode.value),
             decoration: buildInputDecoration(
                 labelText: "Postal Code",
                 errorText: model.postalCode.error,
@@ -182,11 +204,9 @@ class ProfileView extends StatelessWidget {
           Text("Gender"),
           SizedBox(height: 5.0),
           DropdownButtonFormField(
-            decoration: buildInputDecoration(
-                labelText: "Gender",
-                errorText: model.postalCode.error,
-                icon: Icons.person),
-            value: dropDownValue,
+            decoration:
+                buildInputDecoration(labelText: "Gender", icon: Icons.person),
+            value: model.gender.value,
             onChanged: (String value) {
               model.setGender(value);
             },
@@ -196,6 +216,42 @@ class ProfileView extends StatelessWidget {
                 child: new Text(value),
               );
             }).toList(),
+          ),
+          SizedBox(height: 15.0),
+          Text("Id Type"),
+          SizedBox(height: 5.0),
+          DropdownButtonFormField(
+            decoration:
+                buildInputDecoration(labelText: "Id Type", icon: Icons.person),
+            value: model.idType.value,
+            onChanged: (String value) {
+              model.setIdType(value);
+            },
+            items: <String>[
+              'Passport',
+              'Driving licence',
+              'National Id',
+              'Other'
+            ].map((String value) {
+              return new DropdownMenuItem<String>(
+                value: value,
+                child: new Text(value),
+              );
+            }).toList(),
+          ),
+          SizedBox(height: 15.0),
+          Text("IdNumber"),
+          SizedBox(height: 5.0),
+          TextField(
+            controller: TextEditingController(text: model.idNumber.value),
+            decoration: buildInputDecoration(
+              labelText: "IdNumber",
+              icon: Icons.location_city,
+              errorText: model.idNumber.error,
+            ),
+            onChanged: (String value) {
+              model.setIdNumber(value);
+            },
           ),
           SizedBox(height: 20.0),
           RaisedButton(
