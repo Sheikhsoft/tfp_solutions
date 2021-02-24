@@ -1,10 +1,19 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:email_validator/email_validator.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:encrypt/encrypt.dart';
 import 'package:flutter/material.dart';
+
 import 'package:my_app/app/locator.dart';
 import 'package:my_app/app/router.gr.dart';
+import 'package:my_app/datamodels/Customer_model.dart';
+import 'package:my_app/datamodels/customer.dart';
 import 'package:my_app/datamodels/validation_item.dart';
+import 'package:my_app/services/api.dart';
+import 'package:my_app/services/customer_service.dart';
 import 'package:my_app/services/dynamic_link_service.dart';
+import 'package:my_app/services/encryption_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,6 +21,8 @@ import 'package:url_launcher/url_launcher.dart';
 class ProfileViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _dynamicLinkService = locator<DynamicLinkService>();
+  final _customerService = locator<CustomerService>();
+  final _encryptionService = locator<EncryptionService>();
   ValidationItem _name = ValidationItem(null, null);
   ValidationItem _mobile = ValidationItem(null, null);
   ValidationItem _email = ValidationItem(null, null);
@@ -32,14 +43,23 @@ class ProfileViewModel extends BaseViewModel {
   ValidationItem get birthDay => _birthDay;
   ValidationItem get gender => _gender;
 
+  Image _customerPhoto;
+  Image get customerPhoto => _customerPhoto;
+
   String _linkMessage;
   bool _isCreatingLink = false;
+
+  Customer _customer;
+  Customer get customer => _customer;
 
   String get linkMessage => _linkMessage;
   bool get isCreatingLink => _isCreatingLink;
 
   bool get canSubmit =>
       _name.value.length > 3 && (EmailValidator.validate(_email.value));
+
+  Uint8List _bytes;
+  Uint8List get imageBytes => _bytes;
 
   bool get isValid {
     if (_name.value != null &&
@@ -114,9 +134,9 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   void setPostalCode(String postCode) {
-    String patttern = r'(^[0-9]{3,6}$)';
-    RegExp regExp = new RegExp(patttern);
-    if (postCode.length >= 3 && regExp.hasMatch(postCode)) {
+    //String patttern = r'(^[0-9]{3,6}$)';
+    //RegExp regExp = new RegExp(patttern);
+    if (postCode.length >= 3) {
       _postalCode = ValidationItem(postCode, null);
     } else {
       _postalCode = ValidationItem(null, "Must be at least 3 characters");
@@ -154,6 +174,48 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   void initDynamicLinks() async {
+    await getCustomerData();
     await _dynamicLinkService.handleDynamicLinks();
+  }
+
+  Future getCustomerData() async {
+    String encryptedString = await _customerService.getCustomerData();
+    String decryptingString = await decryptString(encryptedString);
+    Map<dynamic, dynamic> jsonValue = jsonDecode(decryptingString);
+    print(jsonValue);
+    _customer = Customer.fromJson(json.decode(decryptingString));
+
+    // put them here
+    Codec<String, String> stringToBase64 = utf8.fuse(base64);
+    String imagenJson = _customer.photos;
+    Uint8List _image = base64Decode(imagenJson);
+    _customerPhoto = Image.memory(_image);
+
+    notifyListeners();
+    setName("${_customer.firstName} ${_customer.lastName}");
+    setEmail(_customer.emailAddress);
+    setCity(_customer.city);
+    //setPostalCode(_customer.postCode.toString());
+    setCountry(_customer.country);
+    setAddress(_customer.address);
+    setPostalCode(_customer.postCode.toString());
+
+    setBirthDay(_customer.dateOfBirth);
+    String photo = await decryptPhotoString(_customer.photos);
+    print(photo);
+  }
+
+  Future<String> decryptString(String enctypedString) async {
+    String decryptValue =
+        await _encryptionService.decrypt(Encrypted.fromBase64(enctypedString));
+    //print(decryptValue);
+    return decryptValue;
+  }
+
+  Future<String> decryptPhotoString(String enctypedString) async {
+    String decryptPhotoValue =
+        await _encryptionService.decrypt(Encrypted.fromBase64(enctypedString));
+    //print(decryptValue);
+    return decryptPhotoValue;
   }
 }

@@ -8,7 +8,9 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../services/api.dart';
 import '../system/app_database.dart';
+import '../services/customer_service.dart';
 import '../services/dynamic_link_service.dart';
 import '../services/encryption_service.dart';
 import '../services/media_service.dart';
@@ -26,9 +28,11 @@ GetIt $initGetIt(
 }) {
   final gh = GetItHelper(get, environment, environmentFilter);
   final thirdPartyServicesModule = _$ThirdPartyServicesModule();
+  gh.lazySingleton<Api>(() => Api());
   gh.lazySingleton<AppDatabase>(() => AppDatabase());
   gh.lazySingleton<BottomSheetService>(
       () => thirdPartyServicesModule.bottomSheetService);
+  gh.lazySingleton<CustomerService>(() => CustomerService());
   gh.lazySingleton<DialogService>(() => thirdPartyServicesModule.dialogService);
   gh.lazySingleton<DynamicLinkService>(() => DynamicLinkService());
   gh.lazySingleton<EncryptionService>(() => EncryptionService());

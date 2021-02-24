@@ -21,8 +21,13 @@ class ProfileView extends StatelessWidget {
           ),
         ),
         body: Container(
-          child: _buildBody(model, context),
-        ),
+            child: model.customer == null
+                ? Container(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                : _buildBody(model, context)),
       ),
       viewModelBuilder: () => ProfileViewModel(),
       onModelReady: (model) => SchedulerBinding.instance
@@ -39,9 +44,18 @@ class ProfileView extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: ListView(
         children: <Widget>[
+          new Container(
+            width: 190.0,
+            height: 190.0,
+            decoration: new BoxDecoration(
+              shape: BoxShape.circle,
+            ),
+            child: model.customerPhoto,
+          ),
           Text("Name"),
           SizedBox(height: 5.0),
           TextFormField(
+            controller: TextEditingController(text: model.name.value),
             autocorrect: false,
             decoration: buildInputDecoration(
               labelText: "name",
@@ -71,6 +85,7 @@ class ProfileView extends StatelessWidget {
           Text("Email"),
           SizedBox(height: 5.0),
           TextField(
+            controller: TextEditingController(text: model.email.value),
             autofocus: false,
             keyboardType: TextInputType.emailAddress,
             decoration: buildInputDecoration(
@@ -86,6 +101,7 @@ class ProfileView extends StatelessWidget {
           Text("Address"),
           SizedBox(height: 5.0),
           TextField(
+            controller: TextEditingController(text: model.address.value),
             autofocus: false,
             decoration: buildInputDecoration(
               labelText: "Address",
@@ -100,6 +116,7 @@ class ProfileView extends StatelessWidget {
           Text("City"),
           SizedBox(height: 5.0),
           TextField(
+            controller: TextEditingController(text: model.city.value),
             decoration: buildInputDecoration(
               labelText: "City",
               icon: Icons.location_city,
@@ -138,7 +155,6 @@ class ProfileView extends StatelessWidget {
           Text("Postal Code"),
           SizedBox(height: 5.0),
           TextField(
-            keyboardType: TextInputType.number,
             decoration: buildInputDecoration(
                 labelText: "Postal Code",
                 errorText: model.postalCode.error,
