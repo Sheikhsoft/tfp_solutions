@@ -21,8 +21,7 @@ flutter run
 https://drive.google.com/file/d/14p_X7XuXOa2SQACSanT9y3dlyWr-84Lq/view?usp=sharing
 
 # youtube Video
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/MGGlpNXuCNI/0.jpg)](https://www.youtube.com/watch?v=MGGlpNXuCNI)
-https://youtu.be/MGGlpNXuCNI
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/wOVLs3cCg_M/0.jpg)](https://www.youtube.com/watch?v=wOVLs3cCg_M)
 
 
 
